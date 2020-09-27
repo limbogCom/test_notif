@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomizedNotif extends StatefulWidget {
   @override
@@ -65,6 +67,15 @@ class _CustomizedNotifState extends State<CustomizedNotif> {
     );
   }
   getTime(){
-
+    SharedPreferences.getInstance().then((value) {
+      var a = value.getString('startTime');
+      var b = value.getString('endTime');
+      if(a != null && b != null){
+        setState(() {
+          startTime = DateFormat('jm').format(DateTime.parse(a));
+          endTime = DateFormat('jm').format(DateTime.parse(b));
+        });
+      }
+    });
   }
 }
